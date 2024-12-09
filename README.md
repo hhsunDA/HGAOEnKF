@@ -4,11 +4,9 @@ This repository contains a matlab implementation of an offline paleoclimate data
 
 ## Key Components
 
-- `AOEnKF`: Run localization sensitivity experiments for the analog offline EnKF (AOEnKF).
+- `Code`: Run sensitivity experiments for different PDA methods.
 
-- `AOEnKF_B`: Run localization sensitivity experiments for the analog offline EnKF with static B (AOEnKF_B).
-
-- `HGAOEnKF`: Run hybrid weights sensitivity experiments for the hybrid gain analog offline EnKF (HGAOEnKF).
+- `Data`: Data prepocessing. If you are interested, please refer to the [NJU box link](https://box.nju.edu.cn/d/76f4c79a4dda4e6da6ac/).
 
 ## Contact Information
 

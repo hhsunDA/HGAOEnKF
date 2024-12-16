@@ -6,7 +6,7 @@ function CE = CEfield(recon,verify)
         mask = ~(isnan(ver_time)|isnan(rec_time));
         if(sum(mask) >= 50) % set min length of validation years
             diff = rec_time-ver_time;
-            if(var(ver_time(mask))>1e-3) % set min variance of SST
+            if(var(ver_time(mask)) > 1e-3) % set min variance of SST
                 CE(imodel,1) = 1-sum(diff(mask).^2)/(sum(mask)*var(ver_time(mask)));
             else
                 CE(imodel,1) = nan;

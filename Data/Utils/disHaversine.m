@@ -1,10 +1,10 @@
 function dis = disHaversine(lon1,lat1,lon2,lat2)
     R = 6367;
-    if(lon1>180)
-        lon1=lon1-360;   
+    if(lon1 > 180)
+        lon1 = lon1-360;   
     end
-    if(lon2>180)
-        lon2=lon2-360;   
+    if(lon2 > 180)
+        lon2 = lon2-360;   
     end
     dlon = lon2-lon1;
     dlat = lat2-lat1;

@@ -37,11 +37,8 @@ Obs_name = ['obs.mat'];
 load([Obs_dir Obs_name])
 lat = obs.lat;
 lon = obs.lon;
-model_size = length(lat)*length(lon);
 lev = obs.lev;
-Obs = obs.value;
-filter_period = [period(1)-obs.sttime+1:period(1)-obs.sttime+simul_year];
-Obs = Obs(:,filter_period);
+model_size = length(lat)*length(lon);
 
 for imodel = 1:model_size
     mod_lat_all(imodel,1) = lat(fix((imodel-1)/length(lon))+1);
@@ -72,11 +69,12 @@ for iModel_type = 1:length(Model_types)
                 Assim_dir = ['../Data/Assim_output/' Model_type '/' Exp_set '/'];
                 Output_name = [Exp_name '_Alpha' num2str(ahp,'%.1f') '_Mask_year' num2str(Mask_year) '.mat'];
                 load([Assim_dir Output_name])
-                filter_period = [period(1)-recon.sttime+1:period(1)-recon.sttime+simul_year];
                 for ilev = 1:length(lev)
+                    filter_period = [period(1)-recon.sttime+1:period(1)-recon.sttime+simul_year];
                     IHCEnKF_prior_save = recon.priorvalue((ilev-1)*model_size+1:ilev*model_size,filter_period);
-                    IHCEnKF_poste_save = recon.postevalue((ilev-1)*model_size+1:ilev*model_size,filter_period);                   
-                    Truth = Obs((ilev-1)*model_size+1:ilev*model_size,:);
+                    IHCEnKF_poste_save = recon.postevalue((ilev-1)*model_size+1:ilev*model_size,filter_period); 
+                    filter_period = [period(1)-obs.sttime+1:period(1)-obs.sttime+simul_year];
+                    Truth = obs.value((ilev-1)*model_size+1:ilev*model_size,filter_period);
                     U_mask = std(Truth,0,2)==0;
                     IHCEnKF_prior_save(U_mask,:) = nan;
                     IHCEnKF_poste_save(U_mask,:) = nan;

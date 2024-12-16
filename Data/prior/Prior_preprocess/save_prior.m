@@ -5,7 +5,7 @@ addpath(genpath('../../Utils'))
 period = [851:2003];
 simul_year = length(period);
 
-Mask_year = 1945;
+Mask_year = 1305;
 
 Prior_raw_names = {'CESM2'};
 iPrior_raw_name = 1;
@@ -38,7 +38,7 @@ Norvar = Norvar.*stds_reshaped;
 Norvar = reshape(Norvar,length(lon)*length(lat)*length(lev),[]); % reshape as model_size*num_V x time
 
 % Load the proxy
-Proxy_name = ['/proxy.mat'];
+Proxy_name = ['proxy.mat'];
 load([Proxy_dir Proxy_name])
 Proxy_lat_all = proxy.Proxy_lat_all;
 Proxy_lon_all = proxy.Proxy_lon_all;
@@ -58,7 +58,7 @@ end
 dist = reshape(dist,length(lon)*length(lat),[]);
 [~,index] = sort(dist,1);
 nearest_index = index(1,:)';
-nearest_index =  (Proxy_sea_all-1)'.*model_size + nearest_index;
+nearest_index =  (Proxy_sea_all-1).*model_size + nearest_index;
 
 Prior = Norvar(1:model_size,:);
 Prior_seamean = zeros(model_size*length(sea_lst),simul_year);

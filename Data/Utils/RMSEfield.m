@@ -6,12 +6,12 @@ function RMSE = RMSEfield(recon,verify)
         mask = ~(isnan(ver_time)|isnan(rec_time));
         if(sum(mask) >= 50)
             diff = rec_time-ver_time;
-            if(var(ver_time,'omitnan')>1e-4)
+            if(var(ver_time,'omitnan') > 1e-3)
                 RMSE(imodel,1) = sqrt(sum(diff(mask).^2)/sum(mask));
             else
                 RMSE(imodel,1) = nan;
             end            
         else
-                RMSE(imodel,1) = nan;
+            RMSE(imodel,1) = nan;
         end
     end

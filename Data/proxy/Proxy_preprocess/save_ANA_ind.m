@@ -2,12 +2,12 @@ clear
 addpath(genpath('../../Utils'))
 % clc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% period = [851:2003]; % for Pseudoproxy, min of period = 851; for PAGES2k, minof period = 0
-period = [0:2003]; % for Pseudoproxy, min of period = 851; for PAGES2k, minof period = 0
+period = [851:2003]; % for Pseudoproxy, min of period = 851; for PAGES2k, minof period = 0
+% period = [0:2003]; % for Pseudoproxy, min of period = 851; for PAGES2k, minof period = 0
 simul_year = length(period);
 ensemble_size = 100;
 climo_size = 1000;
-Mask_year = 1305;
+Mask_year = 1945;
 isosparse = true; % select the analogs based on isotropic sparse regions: Every model grid/box has at most 1 proxy for selecting 
 co_length = 10; % select based on the continuous simulation years of the climate model
 
@@ -16,11 +16,11 @@ iPrior_raw_name = 1;
 Prior_raw_name = Prior_raw_names{iPrior_raw_name};
 
 Proxy_raw_names = {'PAGES2k','Pseudoproxy'};
-iProxy_raw_name = 1;
+iProxy_raw_name = 2;
 Proxy_raw_name = Proxy_raw_names{iProxy_raw_name};
 
 Obs_raw_names={'20CR','Truth'};
-iObs_raw_name = 1;
+iObs_raw_name = 2;
 Obs_raw_name = Obs_raw_names{iObs_raw_name};
 
 Prior_dir = ['../../prior/Prior_preprocess/' Prior_raw_name '/'];
@@ -44,8 +44,8 @@ end
 % Load the proxy
 Proxy_name = ['proxy.mat'];
 load([Proxy_dir Proxy_name])
-proxy_lat = proxy.Proxy_lat_all;
-proxy_lon = proxy.Proxy_lon_all;
+Proxy_lat_all = proxy.Proxy_lat_all;
+Proxy_lon_all = proxy.Proxy_lon_all;
 
 filter_period = period(1)-proxy.sttime+1:period(1)-proxy.sttime+simul_year;
 Proxy = proxy.Proxy(filter_period);
@@ -62,20 +62,20 @@ if(isosparse)
     lon_interval = 2;
     lat_sparse = lat(lat_interval:lat_interval:length(lat));
     lon_sparse = lon(lon_interval:lon_interval:length(lon));
-    for iproxy = 1:length(proxy_lat)
-        [lat1,lat2,lon1,lon2] = return_boxindex(iproxy,lat_sparse,lon_sparse,proxy_lat,proxy_lon);  
+    for iproxy = 1:length(Proxy_lat_all)
+        [lat1,lat2,lon1,lon2] = return_boxindex(iproxy,lat_sparse,lon_sparse,Proxy_lat_all,Proxy_lon_all);  
         obs_flag(iproxy,1) = lat1;
         obs_flag(iproxy,2) = lat2;
         obs_flag(iproxy,3) = lon1;
         obs_flag(iproxy,4) = lon2;    
     end
     
-    p_lon_unique(1) = proxy_lon(1);
-    p_lat_unique(1) = proxy_lat(1);
+    p_lon_unique(1) = Proxy_lon_all(1);
+    p_lat_unique(1) = Proxy_lat_all(1);
     p_obs_flag(1,:) = obs_flag(1,:);
     Mask(1) = 1;
     number = 1;
-    for iproxy = 1:length(proxy_lat)
+    for iproxy = 1:length(Proxy_lat_all)
         for j = 1:length(p_lon_unique)
             flagA = p_obs_flag(j,:);
             flagB = obs_flag(iproxy,:);
@@ -85,8 +85,8 @@ if(isosparse)
         end
         if(logic ~= 1)
             number = number+1;
-            p_lon_unique(number) = proxy_lon(iproxy);
-            p_lat_unique(number) = proxy_lat(iproxy);
+            p_lon_unique(number) = Proxy_lon_all(iproxy);
+            p_lat_unique(number) = Proxy_lat_all(iproxy);
             p_obs_flag(number,:) = obs_flag(iproxy,:);
             Mask(number) = iproxy;
         end
@@ -216,7 +216,7 @@ mean(error_ANA_prior-error_OFF_prior)
 plt_ANA = reshape(ANA_prior,length(lon),length(lat),length(lev),[]);
 plt_Obs = reshape(Obs,length(lon),length(lat),length(lev),[]);
 
-year = 1910;
+year = 1999;
 plt_year = year-vf_period(1)+1;
 proxy_year = year-period(1)+1;
 proxy_lat = Proxy_lat{proxy_year};

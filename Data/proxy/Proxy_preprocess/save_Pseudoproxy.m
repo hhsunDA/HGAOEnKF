@@ -6,7 +6,7 @@ rng(1)
 period = [851:2003];
 simul_year = length(period);
 
-Mask_year = 1305;
+Mask_year = 1945;
 
 Prior_raw_names = {'CESM2'};
 iPrior_raw_name = 1;
@@ -72,7 +72,7 @@ end
 dist = reshape(dist,length(lon)*length(lat),[]);
 [~,index] = sort(dist,1);
 nearest_index = index(1,:)';
-nearest_index =  (Proxy_sea_all-1)'.*model_size + nearest_index;
+nearest_index =  (Proxy_sea_all-1).*model_size + nearest_index;
 
 Truth = Norvar(1:model_size,:);
 Truth_seamean = zeros(model_size*length(sea_lst),simul_year);
@@ -92,7 +92,7 @@ intec = Proxy_ols_all(:,1);
 slope = Proxy_ols_all(:,2);
 Proxy_true = Truth_seamean(nearest_index,:).*kron(slope,ones(1,simul_year))+kron(intec,ones(1,simul_year)); 
 
-obs_error_var = Proxy_error_var_all';
+obs_error_var = Proxy_error_var_all;
 noise = randn(size(Proxy_true,1),size(Proxy_true,2)).*sqrt(kron(obs_error_var,ones(1,size(Proxy_true,2))));
 Proxy = Proxy_true + noise;
 for iassim = 1:simul_year

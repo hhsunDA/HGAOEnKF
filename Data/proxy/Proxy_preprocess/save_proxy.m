@@ -6,7 +6,7 @@ period = [0:2003];
 simul_year = length(period);
 
 filter_spacemask = true;
-Mask_year = 1945; % Define the proxy network according to the time of the year
+Mask_year = 1305; % Define the proxy network according to the time of the year
 
 % Read the raw proxy one by one
 Proxy_raw_names = {'PAGES2k'};
@@ -142,12 +142,12 @@ proxy.Proxy_sea = Proxy_sea;
 proxy.Psm_type = Psm_type;
 proxy.Ptype = Ptype;
 proxy.sttime = period(1);
-proxy.Proxy_lon_all = Proxy_lon_all;
-proxy.Proxy_lat_all = Proxy_lat_all;
-proxy.Proxy_error_var_all = Proxy_error_var_all;
-proxy.Proxy_error_SNR_all = Proxy_error_SNR_all;
+proxy.Proxy_lon_all = Proxy_lon_all';
+proxy.Proxy_lat_all = Proxy_lat_all';
+proxy.Proxy_error_var_all = Proxy_error_var_all';
+proxy.Proxy_error_SNR_all = Proxy_error_SNR_all';
 proxy.Proxy_ols_all = Proxy_ols_all;
-proxy.Proxy_sea_all = Proxy_sea_all;
+proxy.Proxy_sea_all = Proxy_sea_all';
 proxy.Ptype_all = Ptype_all;
 
 Proxy_dir = ['./' Proxy_raw_name '/' num2str(Mask_year) '/'];

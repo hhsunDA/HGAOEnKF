@@ -65,8 +65,8 @@ end
 Proxy_name = ['proxy.mat'];
 load([Proxy_dir Proxy_name])
 
-proxy_lat = proxy.Proxy_lat_all;
-proxy_lon = proxy.Proxy_lon_all;
+Proxy_lat_all = proxy.Proxy_lat_all;
+Proxy_lon_all = proxy.Proxy_lon_all;
 
 % Filter the time of proxy
 filter_period = period(1)-proxy.sttime+1:period(1)-proxy.sttime+simul_year;
@@ -78,18 +78,16 @@ Proxy_lat = proxy.Proxy_lat(filter_period);
 Proxy_lon = proxy.Proxy_lon(filter_period);
 
 % Load the analog index
-ANAind_name = 'ANA_ind.mat';
+ANAind_name = ['ANA_ind.mat'];
 load([Proxy_dir ANAind_name])
 filter_period = period(1)-ANA_ind.sttime+1:period(1)-ANA_ind.sttime+simul_year;
 index_rms = ANA_ind.RMSEind(filter_period,:);
 
 % cat the lat and lon of the prior and proxy, which is needed by GC localization
-obs_lon_all = proxy_lon';
-obs_lat_all = proxy_lat';
-obs_grids_all = [obs_lon_all obs_lat_all];
-update_lon_all = [mod_lon_all;obs_lon_all]; 
-update_lat_all = [mod_lat_all;obs_lat_all];
+update_lon_all = [mod_lon_all; Proxy_lon_all]; 
+update_lat_all = [mod_lat_all; Proxy_lat_all];
 update_grids_all = [update_lon_all update_lat_all];
+Proxy_grids_all = [Proxy_lon_all Proxy_lat_all];
 
 % AOEnKF_B assimilation
 EnKF_prior_save = zeros(model_size*length(lev),simul_year);
@@ -100,7 +98,7 @@ if ~exist(Assim_dir, 'dir')
 end
 for iloc = 1:num_localization
     localization_value = localization_values(iloc);
-    CMat_all = GC(obs_grids_all,update_grids_all,localization_value); 
+    CMat_all = GC(Proxy_grids_all,update_grids_all,localization_value); 
     xb_prime = Model_climo - mean(Model_climo,2); 
     for iassim = 1:simul_year
         obs_error_var = Proxy_R{iassim};

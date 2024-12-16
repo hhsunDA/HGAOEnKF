@@ -1,7 +1,7 @@
-function Loc = GC(obs_grids_all,update_grids_all,cut)
-    for iobs = 1:size(obs_grids_all,1)     
+function Loc = GC(Proxy_grids_all,update_grids_all,cut)
+    for iobs = 1:size(Proxy_grids_all,1)     
         for iCut = 1:size(update_grids_all,1)
-            dist = disHaversine(obs_grids_all(iobs,1),obs_grids_all(iobs,2),update_grids_all(iCut,1),update_grids_all(iCut,2));
+            dist = disHaversine(Proxy_grids_all(iobs,1),Proxy_grids_all(iobs,2),update_grids_all(iCut,1),update_grids_all(iCut,2));
             r = dist ./ (0.5*cut);
             if ( dist >= cut )
                 V(iobs,iCut) = 0.0;

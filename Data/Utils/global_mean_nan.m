@@ -4,3 +4,4 @@ function global_mean = global_mean_nan(field,wt)
         mask = ~isnan(field(:,iyear));
         global_mean(iyear,1) = sum((wt(mask).*field(mask,iyear)),1)./sum(wt(mask));
     end
+end

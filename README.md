@@ -6,7 +6,7 @@ This repository contains a matlab implementation of an offline paleoclimate data
 
 - `Code`: Run sensitivity experiments for different PDA methods.
 
-- `Data`: Data prepocessing. If you are interested, please refer to the [NJU box link](https://box.nju.edu.cn/d/76f4c79a4dda4e6da6ac/).
+- `Data`: Data prepocessing. If you are interested, please refer to the [NJU box link](https://box.nju.edu.cn/d/df74e91d6d8e40ecaa3f/)(this link is updated more frequently than the GitHub page).
 
 ## Contact Information
 

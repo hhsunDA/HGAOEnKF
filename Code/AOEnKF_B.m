@@ -56,10 +56,13 @@ for imodel = 1:model_size
     mod_lon_all(imodel,1) = lon(mod(imodel-1,length(lon))+1);
 end
 
-for ilev = 1:length(lev)-1
-    mod_lat_all = cat(1,mod_lat_all,mod_lat_all);
-    mod_lon_all = cat(1,mod_lon_all,mod_lon_all);
-end
+% % bugs, have been fixed
+% for ilev = 1:length(lev)-1
+%     mod_lat_all = cat(1,mod_lat_all,mod_lat_all);
+%     mod_lon_all = cat(1,mod_lon_all,mod_lon_all);
+% end
+mod_lat_all = repmat(mod_lat_all, length(lev), 1);
+mod_lon_all = repmat(mod_lon_all, length(lev), 1);
 
 % Load the proxy
 Proxy_name = ['proxy.mat'];

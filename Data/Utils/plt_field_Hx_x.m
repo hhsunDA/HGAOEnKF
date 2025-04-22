@@ -11,15 +11,15 @@ Graph{9,1}=rgb('Red');         Graph{9,2}= 'o'; % sclerosponge
 Graph{10,1}=rgb('DeepPink');   Graph{10,2}= 'd'; % speleothem
 Graph{11,1}=rgb('LimeGreen');  Graph{11,2}= '^'; % tree
 
-if(~isempty(find(cellfun(@(x) contains(x, 'coral'), Ptype{1}(filter_space)))))
+if(~isempty(find(cellfun(@(x) contains(x, 'coral'), Ptype_all(proxy_idx)))))
     p_code = 3;
-elseif(~isempty(find(cellfun(@(x) contains(x, 'tree'), Ptype{1}(filter_space)))))
+elseif(~isempty(find(cellfun(@(x) contains(x, 'tree'), Ptype_all(proxy_idx)))))
     p_code = 11;
-elseif(~isempty(find(cellfun(@(x) contains(x, 'ice'), Ptype{1}(filter_space)))))
+elseif(~isempty(find(cellfun(@(x) contains(x, 'ice'), Ptype_all(proxy_idx)))))
     p_code = 5;
-elseif(~isempty(find(cellfun(@(x) contains(x, 'lake'), Ptype{1}(filter_space)))))
+elseif(~isempty(find(cellfun(@(x) contains(x, 'lake'), Ptype_all(proxy_idx)))))
     p_code = 7;
-elseif(~isempty(find(cellfun(@(x) contains(x, 'bivalve'), Ptype{1}(filter_space)))))
+elseif(~isempty(find(cellfun(@(x) contains(x, 'bivalve'), Ptype_all(proxy_idx)))))
     p_code = 1;
 end
 

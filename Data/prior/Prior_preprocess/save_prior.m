@@ -67,18 +67,18 @@ for isea = 1:length(sea_lst)
         Prior_seamean((isea-1)*model_size+1:isea*model_size,iyear) = mean(Prior(:,iyear*12+sea_lst{isea}),2);
     end
 end
+for iyear = 1:simul_year
+    Prior_annual(:,iyear) = mean(Norvar(:,iyear*12+sea_lst{1}),2);
+end
+Prior_eartime = 851;
+filter_period = period(1)-Prior_eartime+1:period(1)-Prior_eartime+simul_year;
+Prior_seamean = Prior_seamean(:,filter_period);
+Prior_annual = Prior_annual(:,filter_period);
 intec = Proxy_ols_all(:,1);
 slope = Proxy_ols_all(:,2);
 Ye = (Prior_seamean(nearest_index,:).*kron(slope,ones(1,simul_year))+kron(intec,ones(1,simul_year)))'; 
 
-% save prior
-for iyear = 1:simul_year
-    Prior_annual(:,iyear) = mean(Norvar(:,iyear*12+sea_lst{1}),2);
-end
-
-Prior_eartime = 851;
-filter_period = period(1)-Prior_eartime+1:period(1)-Prior_eartime+simul_year;
-prior.value = Prior_annual(:,filter_period);
+prior.value = Prior_annual;
 prior.lat = lat;
 prior.lon = lon;
 prior.lev = lev;

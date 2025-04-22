@@ -84,7 +84,6 @@ Proxy_idx = proxy.Proxy_idx(filter_period);
 Proxy_lat = proxy.Proxy_lat(filter_period);
 Proxy_lon = proxy.Proxy_lon(filter_period);
 Proxy_sea = proxy.Proxy_sea(filter_period);
-Ptype = proxy.Ptype(filter_period);
 
 filter_space = 50;
 % filter_space = find(cellfun(@(x) contains(x, 'coral'), Ptype{1}));
@@ -319,8 +318,8 @@ print(handles.figure1,'-dpng',[Figure_dir Figure_name])
 
 
 % Set a basic plotting domain range that includes mean +/- 3 obs SDs
-obslower = min([handles.Hxb_ens handles.Hxa_ens]);
-obsupper = max([handles.Hxb_ens handles.Hxa_ens]);
+obslower = min([handles.Hxb_ens handles.Hxa_ens handles.obs]);
+obsupper = max([handles.Hxb_ens handles.Hxa_ens handles.obs]);
 unobslower = min([handles.xb_ens(location,:) handles.xa_ens(location,:)]);
 unobsupper = max([handles.xb_ens(location,:) handles.xa_ens(location,:)]);
 xlower = 0;
